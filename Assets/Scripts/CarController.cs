@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    public float speed = 5f;
-    public float steering = 2f;
+    public float speed = 10f;
+    public float steering = 5f;
 
     private float moveInput;
     private float steeringInput;
@@ -25,6 +25,6 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = transform.up * moveInput * speed;
-        rb.MoveRotation(rb.rotation + steeringInput * steering);
+        rb.MoveRotation(rb.rotation + steeringInput * (steering * -1));
     }
 }
