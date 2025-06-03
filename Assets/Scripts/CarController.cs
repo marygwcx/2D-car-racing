@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
     public float speed = 10f;
     public float steering = 5f;
+    public float minMoveSpeedForTurning = 0.5f; 
 
     private float moveInput;
     private float steeringInput;
@@ -24,7 +23,12 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         rb.velocity = transform.up * moveInput * speed;
-        rb.MoveRotation(rb.rotation + steeringInput * (steering * -1));
+
+        if (rb.velocity.magnitude > minMoveSpeedForTurning)
+        {
+            rb.MoveRotation(rb.rotation + steeringInput * (steering * -1));
+        }
     }
 }

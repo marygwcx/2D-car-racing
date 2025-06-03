@@ -9,31 +9,39 @@ public class LapCounter : MonoBehaviour
 {
     public int totalLaps = 3;
     private int currentLap = 0;
+    private bool checkpointPassed = false;
     public TextMeshProUGUI lapText;
+    public string sceneName;
 
     void Start()
     {
-        //UpdateLapText();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            currentLap++;
-            Debug.Log("Lap: " + currentLap);
-            lapText.text = "Lap: " + currentLap + " / " + totalLaps;
-
-            if (currentLap >= totalLaps + 1)
+            if(checkpointPassed)
             {
-                SceneManager.LoadScene("Level2");
+                currentLap++;
+                Debug.Log("Lap: " + currentLap);
+                checkpointPassed = false;
+                lapText.text = "Lap: " + currentLap + " / " + totalLaps;
+            }
+            
+
+            if (currentLap >= totalLaps)
+            {
+                SceneManager.LoadScene(sceneName);
             }
         }
     }
 
-    //void UpdateLapText()
-    //{
-    //    lapText.text = "Lap: " + currentLap + " / " + totalLaps;
-    //}
+    public void SetCheckpointPassed()
+    {
+        checkpointPassed = true;
+    }
+
+    
 
 }
